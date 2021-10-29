@@ -213,14 +213,47 @@ public:
         }
     }
 
+    
+    /*
+    string ToDot(Nodo<T> *NodoActual, string resultado)
+    {
+        if(NodoActual!= nullptr){
+            if(!NodoActual->hijo[0]){
+                resultado = resultado + "\n" + to_string(NodoActual->dato) + " -> " + to_string(NodoActual->hijo[0]->dato) + ";";
+            }
+            if(!NodoActual->hijo[1]){
+                resultado = resultado + "\n" + to_string(NodoActual->dato) + " -> " + to_string(NodoActual->hijo[1]->dato) + ";";
+            }
+            ToDot(NodoActual->hijo[0], resultado);
+            ToDot(NodoActual->hijo[1], resultado);
+            return resultado;
+        }
+    }
+    */
+    void ToDot(Nodo<T> *NodoActual, string& resultado)
+    {
+        if(NodoActual->hijo[0]!= nullptr){
+            resultado.append(to_string(NodoActual->dato)).append(" -> ").append(to_string(NodoActual->hijo[0]->dato)).append(";\n");
+            ToDot(NodoActual->hijo[0], resultado);
+        }
+        if(NodoActual->hijo[1]!= nullptr){
+            resultado.append(to_string(NodoActual->dato)).append(" -> ").append(to_string(NodoActual->hijo[1]->dato)).append(";\n");
+            ToDot(NodoActual->hijo[1], resultado);
+        }
+    }
+    
+
     void graficar()
     {
         ofstream archivo;
         archivo.open("./arbolito.dot");
+        string Resultado ="";
+        ToDot(this->raiz, Resultado);
         if (archivo.is_open())
         {
-            archivo << "digraph C { \n";
-            escribirdot(archivo, raiz, 0);
+            archivo << "digraph Figura { \n";
+            // escribirdot(archivo, raiz, 0);
+            archivo << Resultado;
             archivo << "}\n";
             archivo.close();
             system("dot -Tpng ./arbolito.dot -o ./arbolito.png ");
@@ -237,20 +270,13 @@ int main()
     ArbolBinarioBusqueda<int> A;
 
     cout << "\nEJEMPLO DE ARBOL BINARIO";
-    A.insert(18);
-    A.insert(9);
-    A.insert(25);
-    A.insert(7);
-    A.insert(12);
-    A.insert(23);
-    A.insert(29);
-    A.insert(21);
-    A.insert(24);
-    A.insert(31);
+    A.insert(6);
     A.insert(2);
     A.insert(8);
-    A.insert(11);
-    cout << endl;
+    A.insert(1);
+    A.insert(4);
+    A.insert(3);
+   cout << endl;
 
     // Imprimir los elementos del arbol
     cout << "Arbol en InOrden: "

@@ -32,6 +32,5 @@
 *.app
 
 #othwers
-*.dot
 *.vscode
 main

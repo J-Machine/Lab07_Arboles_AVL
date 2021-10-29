@@ -226,7 +226,7 @@ int main()
     A.insert(4);
     A.insert(3);
     A.insert(5);
-   cout << endl;
+    cout << endl;
 
     // Imprimir los elementos del arbol
     cout << "Arbol en InOrden: "

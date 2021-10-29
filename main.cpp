@@ -179,66 +179,15 @@ public:
     }
 
     /////////////////////GRAFICAR//////////////////////////////////
-    void escribirdot(ofstream &archivo, Nodo<T> *ARBOL, int i)
-    {
-        if (ARBOL)
-        {
-            escribirdot(archivo, ARBOL->hijo[0], i); // recorrer por la izquierda
-            if (ARBOL->hijo[0])
-            {
-                i++;
-                archivo << ARBOL->dato << " -> " << ARBOL->hijo[0]->dato << "\n";
-            }
-            else
-            {
-                archivo << "izq" << i << " [style=invis]"
-                        << "\n";
-                archivo << ARBOL->dato << " -> izq" << i << " [style=invis]"
-                        << "\n";
-            }
-
-            if (ARBOL->hijo[1])
-            {
-                archivo << ARBOL->dato << " -> " << ARBOL->hijo[1]->dato << "\n";
-            }
-            else
-            {
-                i++;
-                archivo << "der" << i << " [style=invis]"
-                        << "\n";
-                archivo << ARBOL->dato << " -> der" << i << " [style=invis]"
-                        << "\n";
-            }
-            escribirdot(archivo, ARBOL->hijo[1], i); // recorrer por la derecha
-        }
-    }
-
-    
-    /*
-    string ToDot(Nodo<T> *NodoActual, string resultado)
-    {
-        if(NodoActual!= nullptr){
-            if(!NodoActual->hijo[0]){
-                resultado = resultado + "\n" + to_string(NodoActual->dato) + " -> " + to_string(NodoActual->hijo[0]->dato) + ";";
-            }
-            if(!NodoActual->hijo[1]){
-                resultado = resultado + "\n" + to_string(NodoActual->dato) + " -> " + to_string(NodoActual->hijo[1]->dato) + ";";
-            }
-            ToDot(NodoActual->hijo[0], resultado);
-            ToDot(NodoActual->hijo[1], resultado);
-            return resultado;
-        }
-    }
-    */
-    void ToDot(Nodo<T> *NodoActual, string& resultado)
+    void EscribirDot(Nodo<T> *NodoActual, string& resultado)
     {
         if(NodoActual->hijo[0]!= nullptr){
             resultado.append(to_string(NodoActual->dato)).append(" -> ").append(to_string(NodoActual->hijo[0]->dato)).append(";\n");
-            ToDot(NodoActual->hijo[0], resultado);
+            EscribirDot(NodoActual->hijo[0], resultado);
         }
         if(NodoActual->hijo[1]!= nullptr){
             resultado.append(to_string(NodoActual->dato)).append(" -> ").append(to_string(NodoActual->hijo[1]->dato)).append(";\n");
-            ToDot(NodoActual->hijo[1], resultado);
+            EscribirDot(NodoActual->hijo[1], resultado);
         }
     }
     
@@ -247,20 +196,20 @@ public:
     {
         ofstream archivo;
         archivo.open("./arbolito.dot");
-        string Resultado ="";
-        ToDot(this->raiz, Resultado);
+        string Resultado ="";               // Donde se almacenará la información .dot
+        EscribirDot(this->raiz, Resultado); // Paso por referencia del string de almacenamiento
+
         if (archivo.is_open())
         {
             archivo << "digraph Figura { \n";
-            // escribirdot(archivo, raiz, 0);
-            archivo << Resultado;
+            archivo << Resultado;           // Añadiendo cadena que guarda el recorrido de EscribirDot()
             archivo << "}\n";
             archivo.close();
             system("dot -Tpng ./arbolito.dot -o ./arbolito.png ");
         }
         else
         {
-            cout << "error al crear archivo";
+            cout << "Error al crear archivo";
         }
     }
 };
@@ -276,6 +225,7 @@ int main()
     A.insert(1);
     A.insert(4);
     A.insert(3);
+    A.insert(5);
    cout << endl;
 
     // Imprimir los elementos del arbol

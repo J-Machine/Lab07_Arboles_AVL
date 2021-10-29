@@ -1,8 +1,9 @@
-# LABORATORIO 6 - ÁRBOLES BINARIOS DE BÚSQUEDA
+# LABORATORIO 07 - ÁRBOLES AVL
 <br>
 
 * <b>CURSO:</b>  Algoritmos y Estructuras de Datos - Laboratorio B
 * <b>PRESENTADO POR:</b>
-  * Villaroel Ramos, Fiorela Estefany
-  * Huanca Anquise, Jenny
+  
   * Cusi Hancco, Evelyn Lizbeth
+  * Huanca Anquise, Jenny
+  * Villaroel Ramos, Fiorela Estefany

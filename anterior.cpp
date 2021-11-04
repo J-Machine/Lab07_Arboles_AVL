@@ -260,8 +260,8 @@ public:
         if (!aux)
             return;
         cadena += to_string(aux->dato) + "->";
-        preorder(aux->son[0], cadena);
-        preorder(aux->son[1], cadena);
+        postorder(aux->son[0], cadena);
+        postorder(aux->son[1], cadena);
     }
 
     // In Order
@@ -306,8 +306,6 @@ public:
             return find(d, p->son[0]);
         else if (p->dato < d)
             return find(d, p->son[1]);
-        else 
-            return false;
     }
 
     bool find(const T &d)
@@ -382,82 +380,83 @@ public:
 
 int main()
 {
-    AVL<int> A;
-    // INSERTAR
-    int x;
-    int a, b;
+    // Programa para probar las funciones de un Arbol AVL
+    int option;
     do
     {
-        cout << "\nMENU\n";
-        cout << "1) Insertar\n";
-        cout << "2) Eliminar\n";
-        cout << "3) Buscar\n";
-        cout << "4) Elementos en Pre orden\n";
-        cout << "5) Elementos en In orden\n";
-        cout << "6) Elementos en Post orden\n";
-        cout << "7) Clear\n";
-        cout << "8) Graficar\n";
-        cout << "9) SALIR\n";
+        cout << "PROGRAMA DE ARBOL AVL\n"
+             << "---------------------\n"
+             << "\nIngrese el número para realizar la operación indicada:\n"
+             << "1. Crear arbol\n"
+             << "2. Insertar nuevo nodo\n"
+             << "3. Mostrar árbol (pre, post e in order)\n"
+             << "4. Buscar nodo por su valor\n"
+             << "5. Eliminar un nodo\n"
+             << "6. Graficar el árbol\n"
+             << "7. Vaciar todo el árbol\n"
+             << "0. *Salir del Programa\n";
+
+        int x;
+        AVL<int> A;
         cout << "\nIngrese la opcion: ";
-        cin >> a;
-        switch (a)
+        cin >> option;
+
+        switch (option)
         {
-            case 1:
-                for (int i = 1; i < 51; i++)
-                {
-                    A.insert(i);
-                }
-                break;
-            case 2:
-                cout << endl;
-                cout << " Ingrese valor para eliminar ... ";
-                cin >> x;
-                cout << (A.remove(x) ? " Eliminado" : " No eliminado") << endl;
-                cout << endl;
-                break;
-            case 3:
-                cout << endl;
-                cout << " Ingrese valor para buscar : ";
-                cin >> x;
-                cout << (A.find(x) ? " Encontrado" : " No encontrado") << endl;
-                cout << endl;
-                break;
-            case 4:
-                cout << endl;
-                cout << " Arbol en PreOrden: ";
-                cout << A.preorder() << endl;
-                break;
-            case 5:
-                cout << endl;
-                cout << " Arbol en InOrden: ";
-                cout << A.inorder() << endl;
-                break;
-            case 6:
-                cout << " Arbol en PostOrden: ";
-                cout << A.postorder() << endl;
-                break;
-            case 7:
-                cout << " Vaciando arbol: ";
-                A.clear();
-                cout << endl;
-                break;
+        case 1:
+            cout << " Ingrese un valor entero para la raiz : ";
+            cin >> x;
+            // A.setRoot(x);
+            A.insert(x);
+            break;
 
-            case 8:
-                cout << " Generando gráfico del arbol";
-                A.graficar();
-                system("D:\\Graphviz\\bin\\arbolavl.png");
-                break;
+        case 2:
+            cout << " Ingrese valor entero para nuevo nodo : ";
+            cin >> x;
+            A.insert(x);
+            break;
 
-            case 9:
-                cout << endl;
-                cout << "Seguro que quiere salir?(SI=1)(NO=0) :";
-                cin >> b;
-                cout << endl;
-                if (b == 1)
-                    a = 0;
-                else if(b == 0)
-                    break;
+        case 3:
+            cout << "\nArbol en PreOrden: ";
+            cout << A.preorder() << endl;
+
+            cout << "\nArbol en InOrden: ";
+            cout << A.inorder() << endl;
+
+            cout << "\nArbol en PostOrden: ";
+            cout << A.postorder() << endl;
+            break;
+
+        case 4:
+            cout << "\nIngrese valor para buscar : ";
+            cin >> x;
+            cout << (A.find(x) ? "Encontrado" : "No encontrado") << endl;
+            cout << endl;
+            break;
+
+        case 5:
+            cout << "\nIngrese valor para eliminar : ";
+            cin >> x;
+            cout << (A.remove(x) ? "Eliminado" : "No eliminado") << endl;
+            cout << endl;
+            break;
+
+        case 6:
+            cout << "Generando grafico del arbol";
+            A.graficar();
+            system("D:\\Graphviz\\bin\\arbolavl.png");
+            break;
+
+        case 7:
+            cout << "Vaciando arbol: ";
+            A.clear();
+            cout << endl;
+            break;
+
+        case 0:
+            cout << "Gracias por usar nuestro programa :)\n";
         }
-    } while (a != 0);
+    } while (!option);
+
     return 0;
 }
